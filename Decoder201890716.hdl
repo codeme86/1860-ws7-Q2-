@@ -3,85 +3,119 @@ CHIP Decoder201890716 {
     OUT a, b, c, d, e, f, g;
 
     PARTS:
-    // Inverted inputs
-    Not(in=A, out=nota);
-    Not(in=B, out=notb);
-    Not(in=C, out=notc);
-    Not(in=D, out=notd);
+    Not(in=A, out=na);
+    Not(in=B, out=nb);
+    Not(in=C, out=nc);
+    Not(in=D, out=nd);
 
-    // --- Segment a ---
-    Or(a=B, b=D, out=w_a1);
-    And(a=notb, b=notd, out=w_a2);
-    And(a=nota, b=notc, out=w_a3);
-    And(a=A, b=C, out=w_a4);
-    Or(a=w_a1, b=w_a2, out=w_a5);
-    Or(a=w_a3, b=w_a4, out=w_a6);
-    Or(a=w_a5, b=w_a6, out=a);
+    Or(a=na, b=B, out=w1);
+    Or(a=w1, b=C, out=w2);
+    Or(a=w2, b=D, out=t1);
 
-    // --- Segment b ---
-    Or(a=A, b=C, out=w_b1);
-    And(a=notc, b=notd, out=w_b2);
-    And(a=B, b=notd, out=w_b3);
-    Or(a=w_b1, b=w_b2, out=w_b4);
-    Or(a=w_b4, b=w_b3, out=b);
+    Or(a=A, b=B, out=w3);
+    Or(a=w3, b=C, out=w4);
+    Or(a=w4, b=nd, out=t2);
 
-    // --- Segment c ---
-    Or(a=A, b=notd, out=w_c1);
-    And(a=B, b=notc, out=w_c2);
-    Or(a=w_c1, b=w_c2, out=c);
+    Or(a=na, b=nb, out=w5);
+    Or(a=w5, b=C, out=w6);
+    Or(a=w6, b=nd, out=t3);
 
-    // --- Segment d (Confirmed working logic from your 13/16 HDL) ---
-    // Matching 0000
-    And(a=nota, b=notb, out=w_d1);
-    And(a=notc, b=notd, out=w_d2);
-    And(a=w_d1, b=w_d2, out=m0);
-    // Matching 0010
-    And(a=nota, b=notb, out=w_d3);
-    And(a=C, b=notd, out=w_d4);
-    And(a=w_d3, b=w_d4, out=m1);
-    // Matching 0110
-    And(a=nota, b=B, out=w_d5);
-    And(a=C, b=notd, out=w_d6);
-    And(a=w_d5, b=w_d6, out=m2);
-    // Matching 1000
-    And(a=A, b=notb, out=w_d7);
-    And(a=notc, b=notd, out=w_d8);
-    And(a=w_d7, b=w_d8, out=m3);
-    // Matching 1010
-    And(a=A, b=notb, out=w_d9);
-    And(a=C, b=notd, out=w_d10);
-    And(a=w_d9, b=w_d10, out=m4);
-    // Matching 1011
-    And(a=A, b=notb, out=w_d11);
-    And(a=C, b=D, out=w_d12);
-    And(a=w_d11, b=w_d12, out=m5);
-    // Matching 1100
-    And(a=A, b=B, out=w_d13);
-    And(a=notc, b=notd, out=w_d14);
-    And(a=w_d13, b=w_d14, out=m6);
-    // Matching 1110
-    And(a=A, b=B, out=w_d15);
-    And(a=C, b=notd, out=w_d16);
-    And(a=w_d15, b=w_d16, out=m7);
-    // Combine
-    Or(a=m0, b=m1, out=o1);
-    Or(a=o1, b=m2, out=o2);
-    Or(a=o2, b=m3, out=o3);
-    Or(a=o3, b=m4, out=o4);
-    Or(a=o4, b=m5, out=o5);
-    Or(a=o5, b=m6, out=o6);
-    Or(a=o6, b=m7, out=d);
+    Or(a=na, b=B, out=w7);
+    Or(a=w7, b=nc, out=w8);
+    Or(a=w8, b=nd, out=t4);
 
-    // --- Segment e ---
-    And(a=notc, b=notd, out=w_e1);
-    Or(a=nota, b=w_e1, out=e);
+    And(a=t1, b=t2, out=w9);
+    And(a=t3, b=t4, out=w10);
+    And(a=w9, b=w10, out=a);
 
-    // --- Segment f ---
-    And(a=nota, b=notc, out=w_f1);
-    Or(a=B, b=w_f1, out=f);
+    Or(a=na, b=B, out=w11);
+    Or(a=w11, b=C, out=w12);
+    Or(a=w12, b=D, out=u1);
 
-    // --- Segment g ---
-    Or(a=B, b=D, out=w_g1);
-    And(a=notb, b=notd, out=w_g2);
-    Or(a=w_g1, b=w_g2, out=g);
+    Or(a=A, b=B, out=w13);
+    Or(a=w13, b=C, out=w14);
+    Or(a=w14, b=nd, out=u2);
+
+    Or(a=nb, b=nc, out=w15);
+    Or(a=w15, b=nd, out=u3);
+
+    Or(a=na, b=B, out=w16);
+    Or(a=w16, b=nc, out=w17);
+    Or(a=w17, b=D, out=u4);
+
+    And(a=u1, b=u2, out=w18);
+    And(a=u3, b=u4, out=w19);
+    And(a=w18, b=w19, out=b);
+
+    Or(a=A, b=B, out=w20);
+    Or(a=w20, b=nc, out=w21);
+    Or(a=w21, b=D, out=v1);
+
+    Or(a=na, b=nb, out=w22);
+    Or(a=w22, b=D, out=v2);
+
+    Or(a=na, b=nb, out=w23);
+    Or(a=w23, b=nc, out=v3);
+
+    And(a=v1, b=v2, out=w24);
+    And(a=w24, b=v3, out=c);
+
+    Or(a=A, b=nd, out=w25);
+    Or(a=na, b=nb, out=w26);
+    Or(a=w26, b=nd, out=w27);
+    Or(a=A, b=nb, out=w28);
+    Or(a=w28, b=C, out=w29);
+    Or(a=B, b=D, out=w30);
+
+    Or(a=w25, b=w27, out=w31);
+    Or(a=w31, b=w29, out=w32);
+    Or(a=w32, b=w30, out=d);
+
+    Or(a=A, b=nb, out=w33);
+    Or(a=w33, b=C, out=w34);
+    Or(a=w34, b=nd, out=x1);
+
+    Or(a=nb, b=nc, out=w35);
+    Or(a=w35, b=D, out=x2);
+
+    Or(a=na, b=nb, out=w36);
+    Or(a=w36, b=D, out=x3);
+
+    Or(a=na, b=nc, out=w37);
+    Or(a=w37, b=nd, out=x4);
+
+    And(a=x1, b=x2, out=w38);
+    And(a=x3, b=x4, out=w39);
+    And(a=w38, b=w39, out=e);
+
+    Or(a=na, b=nb, out=w40);
+    Or(a=w40, b=C, out=w41);
+    Or(a=w41, b=nd, out=y1);
+
+    Or(a=A, b=B, out=w42);
+    Or(a=w42, b=nd, out=y2);
+
+    Or(a=A, b=B, out=w43);
+    Or(a=w43, b=nc, out=y3);
+
+    Or(a=A, b=nc, out=w44);
+    Or(a=w44, b=nd, out=y4);
+
+    And(a=y1, b=y2, out=w45);
+    And(a=y3, b=y4, out=w46);
+    And(a=w45, b=w46, out=f);
+
+    Or(a=A, b=B, out=w47);
+    Or(a=w47, b=C, out=z1);
+
+    Or(a=A, b=nb, out=w48);
+    Or(a=w48, b=nc, out=w49);
+    Or(a=w49, b=nd, out=z2);
+
+    Or(a=na, b=nb, out=w50);
+    Or(a=w50, b=C, out=w51);
+    Or(a=w51, b=D, out=z3);
+
+    And(a=z1, b=z2, out=w52);
+    And(a=w52, b=z3, out=g);
 }
