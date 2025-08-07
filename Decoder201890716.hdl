@@ -53,15 +53,68 @@ CHIP Decoder201890716 {
     And(a=w23, b=tc3, out=c);
 
     // d
-    And(a=A, b=nD, out=td1);
-    And(a=nA, b=nB, out=w24);
-    And(a=w24, b=nD, out=td2);
-    And(a=A, b=nB, out=w25);
-    And(a=w25, b=C, out=td3);
-    And(a=B, b=D, out=td4);
-    Or(a=td1, b=td2, out=w26);
-    Or(a=w26, b=td3, out=w27);
-    Or(a=w27, b=td4, out=d);
+    
+    // Matching input 0000
+    And(a=nota, b=notb, out=w1);
+    And(a=notc, b=notd, out=w2);
+    And(a=w1, b=w2, out=m0);
+
+    // Matching input 0010
+    And(a=nota, b=notb, out=w3);
+    And(a=C, b=notd, out=w4);
+    And(a=w3, b=w4, out=m1);
+
+    // Matching input 0110
+    And(a=nota, b=B, out=w5);
+    And(a=C, b=notd, out=w6);
+    And(a=w5, b=w6, out=m2);
+
+    // Matching input 1000
+    And(a=A, b=notb, out=w7);
+    And(a=notc, b=notd, out=w8);
+    And(a=w7, b=w8, out=m3);
+
+    // Matching input 1010
+    And(a=A, b=notb, out=w9);
+    And(a=C, b=notd, out=w10);
+    And(a=w9, b=w10, out=m4);
+
+    // Matching input 1011
+    And(a=A, b=notb, out=w11);
+    And(a=C, b=D, out=w12);
+    And(a=w11, b=w12, out=m5);
+
+    // Matching input 1100
+    And(a=A, b=B, out=w13);
+    And(a=notc, b=notd, out=w14);
+    And(a=w13, b=w14, out=m6);
+
+    // Matching input 1110
+    And(a=A, b=B, out=w15);
+    And(a=C, b=notd, out=w16);
+    And(a=w15, b=w16, out=m7);
+
+    // Matching input 1101
+    And(a=A, b=B, out=w17);
+    And(a=notc, b=D, out=w18);
+    And(a=w17, b=w18, out=m8);
+
+    
+    And(a=A, b=B, out=w19);
+    And(a=C, b=D, out=w20);
+    And(a=w19, b=w20, out=m9);
+
+    
+    Or(a=m0, b=m1, out=o1);
+    Or(a=o1, b=m2, out=o2);
+    Or(a=o2, b=m3, out=o3);
+    Or(a=o3, b=m4, out=o4);
+    Or(a=o4, b=m5, out=o5);
+    Or(a=o5, b=m6, out=o6);
+    Or(a=o6, b=m7, out=o7);
+    Or(a=o7, b=m8, out=o8);
+    Or(a=o8, b=m9, out=d);
+
 
     // e
     Or(a=A, b=nB, out=w47);
