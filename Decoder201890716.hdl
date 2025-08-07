@@ -3,47 +3,103 @@ CHIP Decoder201890716 {
     OUT a, b, c, d, e, f, g;
 
     PARTS:
-    Not(in=A, out=nota);
-    Not(in=B, out=notb);
-    Not(in=C, out=notc);
-    Not(in=D, out=notd);
+    Not(in=A, out=nA);
+    Not(in=B, out=nB);
+    Not(in=C, out=nC);
+    Not(in=D, out=nD);
 
-    // Segment a
-    Or(a=A, b=notb, out=w1);
-    Or(a=w1, b=C, out=w2);
-    Or(a=w2, b=D, out=t1);
+    // a
+    Or(a=A, b=nB, out=w0);
+    Or(a=w0, b=C, out=w1);
+    Or(a=w1, b=D, out=ta1);
+    Or(a=A, b=B, out=w2);
+    Or(a=w2, b=C, out=w3);
+    Or(a=w3, b=nD, out=ta2);
+    Or(a=nA, b=nB, out=w4);
+    Or(a=w4, b=C, out=w5);
+    Or(a=w5, b=nD, out=ta3);
+    Or(a=nA, b=B, out=w6);
+    Or(a=w6, b=nC, out=w7);
+    Or(a=w7, b=nD, out=ta4);
+    And(a=ta1, b=ta2, out=w8);
+    And(a=w8, b=ta3, out=w9);
+    And(a=w9, b=ta4, out=a);
 
-    Or(a=A, b=B, out=w3);
-    Or(a=w3, b=C, out=w4);
-    Or(a=w4, b=notd, out=t2);
+    // b
+    Or(a=A, b=nB, out=w10);
+    Or(a=w10, b=C, out=w11);
+    Or(a=w11, b=D, out=tb1);
+    Or(a=A, b=B, out=w12);
+    Or(a=w12, b=C, out=w13);
+    Or(a=w13, b=nD, out=tb2);
+    Or(a=nB, b=nC, out=w14);
+    Or(a=w14, b=nD, out=tb3);
+    Or(a=nA, b=B, out=w15);
+    Or(a=w15, b=nC, out=w16);
+    Or(a=w16, b=D, out=tb4);
+    And(a=tb1, b=tb2, out=w17);
+    And(a=w17, b=tb3, out=w18);
+    And(a=w18, b=tb4, out=b);
 
-    Or(a=nota, b=notb, out=w5);
-    Or(a=w5, b=C, out=w6);
-    Or(a=w6, b=notd, out=t3);
+    // c
+    Or(a=A, b=B, out=w19);
+    Or(a=w19, b=nC, out=w20);
+    Or(a=w20, b=D, out=tc1);
+    Or(a=nA, b=nB, out=w21);
+    Or(a=w21, b=D, out=tc2);
+    Or(a=nA, b=nB, out=w22);
+    Or(a=w22, b=nC, out=tc3);
+    And(a=tc1, b=tc2, out=w23);
+    And(a=w23, b=tc3, out=c);
 
-    Or(a=nota, b=B, out=w7);
-    Or(a=w7, b=notc, out=w8);
-    Or(a=w8, b=notd, out=t4);
+    // d
+    And(a=A, b=nD, out=td1);
+    And(a=nA, b=nB, out=w24);
+    And(a=w24, b=nD, out=td2);
+    And(a=A, b=nB, out=w25);
+    And(a=w25, b=C, out=td3);
+    And(a=B, b=D, out=td4);
+    Or(a=td1, b=td2, out=w26);
+    Or(a=w26, b=td3, out=w27);
+    Or(a=w27, b=td4, out=d);
 
-    And(a=t1, b=t2, out=w9);
-    And(a=t3, b=t4, out=w10);
-    And(a=w9, b=w10, out=a);
+    // e
+    Or(a=A, b=nB, out=w27);
+    Or(a=w27, b=C, out=w28);
+    Or(a=w28, b=nD, out=te1);
+    Or(a=nB, b=nC, out=w29);
+    Or(a=w29, b=D, out=te2);
+    Or(a=nA, b=nB, out=w30);
+    Or(a=w30, b=D, out=te3);
+    Or(a=nA, b=nC, out=w31);
+    Or(a=w31, b=nD, out=te4);
+    And(a=te1, b=te2, out=w32);
+    And(a=w32, b=te3, out=w33);
+    And(a=w33, b=te4, out=e);
 
-    // Segment d
-    And(a=A, b=notd, out=m1);
-    And(a=notb, b=notd, out=m2);
-    And(a=A, b=notb, out=w11);
-    And(a=w11, b=C, out=m3);
-    And(a=B, b=D, out=m4);
+    // f
+    Or(a=nA, b=nB, out=w34);
+    Or(a=w34, b=C, out=w35);
+    Or(a=w35, b=nD, out=tf1);
+    Or(a=A, b=B, out=w36);
+    Or(a=w36, b=nD, out=tf2);
+    Or(a=A, b=B, out=w37);
+    Or(a=w37, b=nC, out=tf3);
+    Or(a=A, b=nC, out=w38);
+    Or(a=w38, b=nD, out=tf4);
+    And(a=tf1, b=tf2, out=w39);
+    And(a=w39, b=tf3, out=w40);
+    And(a=w40, b=tf4, out=f);
 
-    Or(a=m1, b=m2, out=o1);
-    Or(a=o1, b=m3, out=o2);
-    Or(a=o2, b=m4, out=d);
-
-    // Placeholders
-    Or(a=A, b=A, out=b);
-    Or(a=A, b=A, out=c);
-    Or(a=A, b=A, out=e);
-    Or(a=A, b=A, out=f);
-    Or(a=A, b=A, out=g);
+    // g
+    Or(a=A, b=B, out=w41);
+    Or(a=w41, b=C, out=tg1);
+    Or(a=A, b=nB, out=w42);
+    Or(a=w42, b=nC, out=w43);
+    Or(a=w43, b=nD, out=tg2);
+    Or(a=nA, b=nB, out=w44);
+    Or(a=w44, b=C, out=w45);
+    Or(a=w45, b=D, out=tg3);
+    And(a=tg1, b=tg2, out=w46);
+    And(a=w46, b=tg3, out=g);
 }
