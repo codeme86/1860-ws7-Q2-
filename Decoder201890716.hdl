@@ -64,8 +64,8 @@ CHIP Decoder201890716 {
     Or(a=w27, b=td4, out=d);
 
     // e
-    Or(a=A, b=nB, out=w27);
-    Or(a=w27, b=C, out=w28);
+    Or(a=A, b=nB, out=w47);
+    Or(a=w47, b=C, out=w28);
     Or(a=w28, b=nD, out=te1);
     Or(a=nB, b=nC, out=w29);
     Or(a=w29, b=D, out=te2);
