@@ -1,0 +1,46 @@
+CHIP Decoder201890716 {
+    IN A, B, C, D;
+    OUT a, b, c, d, e, f, g;
+
+    PARTS:
+    // NOT gates for all inputs
+    Not(in=A, out=nota);
+    Not(in=B, out=notb);
+    Not(in=C, out=notc);
+    Not(in=D, out=notd);
+
+    // -------- SEGMENT A (placeholder logic) --------
+    And(a=nota, b=notb, out=w_a1);
+    Or(a=w_a1, b=C, out=a);
+
+    // -------- SEGMENT B (placeholder logic) --------
+    And(a=B, b=notd, out=w_b1);
+    Or(a=A, b=w_b1, out=b);
+
+    // -------- SEGMENT C (placeholder logic) --------
+    And(a=notb, b=D, out=w_c1);
+    Or(a=C, b=w_c1, out=c);
+
+    // -------- SEGMENT D (confirmed logic) --------
+    And(a=A, b=notd, out=w_d1);
+    And(a=nota, b=notb, out=w_d2);
+    And(a=w_d2, b=notd, out=w_d3);
+    And(a=A, b=notb, out=w_d4);
+    And(a=w_d4, b=C, out=w_d5);
+    And(a=B, b=D, out=w_d6);
+    Or(a=w_d1, b=w_d3, out=w_d7);
+    Or(a=w_d7, b=w_d5, out=w_d8);
+    Or(a=w_d8, b=w_d6, out=d);
+
+    // -------- SEGMENT E (placeholder logic) --------
+    And(a=nota, b=D, out=w_e1);
+    Or(a=notc, b=w_e1, out=e);
+
+    // -------- SEGMENT F (placeholder logic) --------
+    And(a=A, b=notc, out=w_f1);
+    Or(a=w_f1, b=notd, out=f);
+
+    // -------- SEGMENT G (placeholder logic) --------
+    And(a=B, b=notb, out=w_g1);
+    Or(a=A, b=w_g1, out=g);
+}
